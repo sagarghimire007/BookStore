@@ -9,8 +9,6 @@ public class Users {
     private Integer userId;
     private String email;
     private String password;
-
-
     private String fullName;
 
     public void setUserId(Integer userId) {

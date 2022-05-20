@@ -13,7 +13,7 @@ public class UsersTest {
         Users users1 = new Users();
         users1.setEmail("padmabhusal@gmail.com");
         users1.setFullName("Padma Bhusal");
-        users1.setPassword("padma");
+        users1.setPassword("logic1");
 
         // 1. Create an Entity Manager Factory
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("BookStore");
