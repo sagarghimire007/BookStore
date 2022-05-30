@@ -1,66 +1,97 @@
 package com.bookstore.dao;
 
 import com.bookstore.entity.Users;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UsersDAOTest {
-    private  EntityManagerFactory entityManagerFactory;
-    private  EntityManager entityManager;
-    private  UsersDAO userDAO;
+class UsersDAOTest extends BaseDAOTest {
+    private static UsersDAO userDAO;
+
+    @BeforeClass
+    public static void setUpBeforeClass(){
+        BaseDAOTest.setUpBeforeClass();
+        userDAO = new UsersDAO(entityManager);
+    }
 
     @Test
     void testCreateUsers() {
 
         Users users1 = new Users();
-        users1.setEmail("punisher@gmail.com");
-        users1.setFullName("Sandesh Sapkota");
-        users1.setPassword("hello123");
+        users1.setEmail("john@gmail.com");
+        users1.setFullName("John Smith");
+        users1.setPassword("johnny");
 
-        entityManagerFactory = Persistence.createEntityManagerFactory("BookStore");
-
-        entityManager = entityManagerFactory.createEntityManager();
-
-        userDAO = new UsersDAO(entityManager);
-
+        setUpBeforeClass();
         users1 = userDAO.create(users1);
+        tearDownClass();
 
-        entityManager.close();
-
-        entityManagerFactory.close();
-
-        assertTrue(users1.getUserId() > 0);
+        assertTrue(users1.getId() > 0);
     }
 
     @Test
     void testUpdateUsers(){
 
         Users user = new Users();
-        user.setUserId(1);
-        user.setEmail("nam@codejava.net");
-        user.setFullName("Salena Gomez");
-        user.setPassword("Saleena");
+        user.setId(6);
+        user.setEmail("john@codejava.net");
+        user.setFullName("John Ronaldo");
+        user.setPassword("Ronaldo");
 
-        entityManagerFactory = Persistence.createEntityManagerFactory("BookStore");
-
-        entityManager = entityManagerFactory.createEntityManager();
-
-        userDAO = new UsersDAO(entityManager);
-
+        setUpBeforeClass();
         user = userDAO.update(user);
+        tearDownClass();
 
-        entityManager.close();
-
-        entityManagerFactory.close();
-
-        String expected = "Saleena";
+        String expected = "Ronaldo";
         String actual = user.getPassword();
 
         assertEquals(expected,actual);
+    }
+
+    @Test
+    public void testDeleteUser(){
+        Integer id = 2;
+        setUpBeforeClass();
+        userDAO.delete(id);
+
+        Users user = userDAO.get(id);
+        assertNull(user);
+    }
+
+    @Test
+    public void testListAll(){
+        setUpBeforeClass();
+        List<Users> userList = userDAO.listAll();
+        tearDownClass();
+
+        assertNotNull(userList);
+
+    }
+
+    @Test
+    public void testUserCount(){
+        setUpBeforeClass();
+        long count = userDAO.count();
+        tearDownClass();
+        assertEquals(2,count);
+    }
+
+    @Test
+    public void testFindByEmail(){
+        String email = "rosni@gmail.com";
+        setUpBeforeClass();
+        Users user = userDAO.findByEmail(email);
+        tearDownClass();
+        assertNotNull(user);
+
+    }
+
+    @AfterClass
+    public static void tearDownClass(){
+        BaseDAOTest.tearBeforeClass();
     }
 }

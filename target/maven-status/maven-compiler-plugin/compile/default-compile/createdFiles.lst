@@ -1,4 +1,3 @@
-test\Calculator.class
-com\bookstore\dao\JpaDAO.class
 com\bookstore\dao\UsersDAO.class
 com\bookstore\dao\GenericDAO.class
+com\bookstore\dao\JpaDAO.class

@@ -20,7 +20,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="BookStore" value="6e31dde8-2cb0-424c-81e9-8df185314525" />
+          <factory-entry name="BookStore" value="3c0b8743-4fe2-4f96-8fbb-398fd5da7f7c" />
           <factory-entry name="noname-a.xml@0" value="ec397fda-5bdd-461d-8c87-9d391c0c48fb" />
         </datasource-mapping>
         <naming-strategy-map />
@@ -30,7 +30,7 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
-          <unit-entry name="hibernate.cfg.xml" value="6e31dde8-2cb0-424c-81e9-8df185314525" />
+          <unit-entry name="hibernate.cfg.xml" value="3c0b8743-4fe2-4f96-8fbb-398fd5da7f7c" />
         </datasource-map>
         <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernate.cfg.xml" />

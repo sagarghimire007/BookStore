@@ -1,13 +1,10 @@
+C:\Users\sagar\IdeaProjects\BookStore\src\main\java\com\bookstore\entity\Users.java
 C:\Users\sagar\IdeaProjects\BookStore\src\main\java\com\bookstore\entity\OrderDetail.java
 C:\Users\sagar\IdeaProjects\BookStore\src\main\java\com\bookstore\entity\Review.java
+C:\Users\sagar\IdeaProjects\BookStore\src\main\java\com\bookstore\dao\JpaDAO.java
 C:\Users\sagar\IdeaProjects\BookStore\src\main\java\com\bookstore\entity\Book.java
 C:\Users\sagar\IdeaProjects\BookStore\src\main\java\com\bookstore\entity\Customer.java
-C:\Users\sagar\IdeaProjects\BookStore\src\main\java\test\UsersTest.java
+C:\Users\sagar\IdeaProjects\BookStore\src\main\java\com\bookstore\dao\GenericDAO.java
 C:\Users\sagar\IdeaProjects\BookStore\src\main\java\com\bookstore\entity\BookOrder.java
 C:\Users\sagar\IdeaProjects\BookStore\src\main\java\com\bookstore\dao\UsersDAO.java
 C:\Users\sagar\IdeaProjects\BookStore\src\main\java\com\bookstore\entity\Category.java
-C:\Users\sagar\IdeaProjects\BookStore\src\main\java\com\bookstore\entity\Users.java
-C:\Users\sagar\IdeaProjects\BookStore\src\main\java\com\bookstore\dao\JpaDAO.java
-C:\Users\sagar\IdeaProjects\BookStore\src\main\java\com\bookstore\dao\GenericDAO.java
-C:\Users\sagar\IdeaProjects\BookStore\src\main\java\test\Calculator.java
-C:\Users\sagar\IdeaProjects\BookStore\src\main\java\test\CategoryTest.java

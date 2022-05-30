@@ -3,25 +3,63 @@ package com.bookstore.entity;
 import javax.persistence.*;
 
 @Entity
+
+@NamedQueries({
+        @NamedQuery(name = "Users.findAll", query = "select u from Users u"),
+        @NamedQuery(name = "Users.countAll", query = "select count(*) from Users u"),
+        @NamedQuery(name = "Users.findByEmail", query = "select u from Users u where u.email =: email")
+})
+
+@Table(name = "users", indexes = { @Index(name = "email_UNIQUE", columnList = "email", unique = true) })
+
 public class Users {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", nullable = false)
+    private Integer id;
 
-
-    private Integer userId;
+    @Column(name = "email", nullable = false, length = 30)
     private String email;
-    private String password;
+
+    @Column(name = "full_name", nullable = false, length = 30)
     private String fullName;
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    @Column(name = "password", nullable = false, length = 30)
+    private String password;
+
+
+    public Users() {
+
     }
 
-    // if the column name on the database and the instance variable differs than use the Column JPA annotation...
-    @Column(name = "user_id")
-    //maps to the primary key in the database table...
-    @Id //
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer getUserId() {
-        return userId;
+    public Users(String email , String fullName , String password) {
+        this.email = email;
+        this.fullName = fullName;
+        this.password = password;
+    }
+
+    public Users(Integer userId , String email , String fullName , String password) {
+        this.id = userId;
+        this.email = email;
+        this.fullName = fullName;
+        this.password = password;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -32,20 +70,11 @@ public class Users {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Column(name = "full_name")
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
