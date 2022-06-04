@@ -7,7 +7,8 @@ import javax.persistence.*;
 @NamedQueries({
         @NamedQuery(name = "Users.findAll", query = "select u from Users u"),
         @NamedQuery(name = "Users.countAll", query = "select count(*) from Users u"),
-        @NamedQuery(name = "Users.findByEmail", query = "select u from Users u where u.email =: email")
+        @NamedQuery(name = "Users.findByEmail", query = "select u from Users u where u.email =: email"),
+        @NamedQuery(name = "Users.checkLogin", query = "select u from Users u where u.email =: email AND u.password =: password")
 })
 
 @Table(name = "users", indexes = { @Index(name = "email_UNIQUE", columnList = "email", unique = true) })

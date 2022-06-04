@@ -3,7 +3,9 @@ package com.bookstore.dao;
 import com.bookstore.entity.Users;
 
 import javax.persistence.EntityManager;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UsersDAO extends JpaDAO<Users> implements GenericDAO<Users>{
 
@@ -27,7 +29,7 @@ public class UsersDAO extends JpaDAO<Users> implements GenericDAO<Users>{
 
     @Override
     public void delete(Object id) {
-        super.deleteUser(Users.class, id);
+        super.delete(Users.class, id);
     }
 
     @Override
@@ -46,5 +48,17 @@ public class UsersDAO extends JpaDAO<Users> implements GenericDAO<Users>{
             return listUsers.get(0);
         }
         return  null;
+    }
+
+    public boolean checkLogin(String email, String password){
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("email", email);
+        parameters.put("password", password);
+
+        List<Users> listUsers =  super.findWithNamedQuery("Users.checkLogin", parameters);
+        if(listUsers.size() == 1){
+            return true;
+        }
+        return false;
     }
 }

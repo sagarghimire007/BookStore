@@ -5,6 +5,12 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Category.findAll", query = "select c from Category c order by c.categoryName"),
+        @NamedQuery(name = "Category.countCategory", query = "select count(*) from Category c"),
+        @NamedQuery(name = "Category.findByCategoryName", query = "select c from Category c where c.categoryName =: categoryName")
+})
+
 @Table(name = "category")
 public class Category {
     @Id
@@ -17,6 +23,21 @@ public class Category {
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "category")
     private Set<Book> books = new LinkedHashSet<>();
+
+    // non-parameterized constructor
+    public Category() {
+    }
+
+    // parameterized constructor
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public Category(Integer categoryId , String categoryName) {
+        this.id = categoryId;
+        this.categoryName = categoryName;
+    }
+
 
     public Set<Book> getBooks() {
         return books;
@@ -41,6 +62,4 @@ public class Category {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    //TODO Reverse Engineering! Migrate other columns to the entity
 }

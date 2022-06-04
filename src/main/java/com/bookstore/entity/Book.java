@@ -1,15 +1,25 @@
 package com.bookstore.entity;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.time.LocalDate;
+import java.util.Base64;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "book", indexes = { @Index(name = "category_id_fk_idx", columnList = "category_id") })
+@Table(name = "book", indexes = { @Index(name = "category_id_fk_idx", columnList = "category_id")})
+
+@NamedQueries({
+        @NamedQuery(name = "Books.findAll", query = "select b from Book b"),
+        @NamedQuery(name = "Books.countBooks", query = "select count(*) from Book b"),
+        @NamedQuery(name = "Books.findByTitle", query = "select b from Book b where b.title =: title")
+
+
+
+})
 public class Book {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id", nullable = false)
     private Integer id;
 
@@ -33,10 +43,10 @@ public class Book {
     private Double price;
 
     @Column(name = "publish_date", nullable = false)
-    private LocalDate publishDate;
+    private Date publishDate;
 
     @Column(name = "last_update_time", nullable = false)
-    private Instant lastUpdateTime;
+    private Date lastUpdateTime;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
@@ -47,6 +57,9 @@ public class Book {
 
     @OneToMany(mappedBy = "book")
     private Set<Review> reviews = new LinkedHashSet<>();
+
+    @Transient
+    private String base64Image;
 
     public Set<Review> getReviews() {
         return reviews;
@@ -72,19 +85,19 @@ public class Book {
         this.category = category;
     }
 
-    public Instant getLastUpdateTime() {
+    public Date getLastUpdateTime() {
         return lastUpdateTime;
     }
 
-    public void setLastUpdateTime(Instant lastUpdateTime) {
+    public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
     }
 
-    public LocalDate getPublishDate() {
+    public Date getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(LocalDate publishDate) {
+    public void setPublishDate(Date publishDate) {
         this.publishDate = publishDate;
     }
 
@@ -142,5 +155,17 @@ public class Book {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    // transient states that there is no mapping between the object and database attributes
+    @Transient
+    public String getBase64Image(){
+        this.base64Image = Base64.getEncoder().encodeToString(this.image);
+        return this.base64Image;
+    }
+
+    @Transient
+    public void setBase64Image(String base64Image){
+        this.base64Image = base64Image;
     }
 }

@@ -1,0 +1,96 @@
+#adminInfo{
+    font-size: large;
+    padding-bottom: 20px;
+}
+
+#headerMenu{
+    display: table;
+}
+
+.menuItem{
+    display: table-cell;
+    padding-right: 30px;
+}
+
+.menuItem a:link{
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+a:link{
+    text-decoration: none;
+}
+
+a:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
+
+.pageHeading{
+    color: darkblue;
+}
+
+.menuItem img{
+    height: 90px;
+    width: 90px;
+}
+
+.menuItem .iconHeader{
+    text-align: center;
+    margin-top: 5px;
+}
+
+table{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td{
+    padding: 8px;
+}
+
+th{
+    background-color: darkblue;
+    color: cornsilk;
+    font-size: larger;
+}
+
+table.form{
+    border: 0;
+    padding: 4px;
+}
+
+button{
+    padding:6px;
+    border-radius: 5px;
+    margin-left: 10px;
+    width: 70px;
+}
+
+button[type=submit]{
+    font-weight: bold;
+}
+
+button:hover{
+    background-color: white;
+    color: green;
+}
+
+input{
+    border:1px solid;
+    border-radius: 4px;
+    height: 25px;
+    width: 250px;
+}
+
+.message{
+    font-style: italic;
+    color: blue;
+}
+
+.error{
+    color: red;
+    font-style: italic;
+    margin: 5px;
+}

@@ -4,33 +4,40 @@
 <html>
 <head>
     <title>Create New User - EverGreen Online BookStore</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 </head>
 <body>
 
 <jsp:directive.include file="header.jsp"/>
 
-    <c:if test="${user == null}">
-        <div align="center">
-            <h2>Create New User</h2>
-        </div>
-    </c:if>
+<div align="center">
+    <h2 class="pageHeading">
+        <c:if test="${user == null}">
+            <div align="center">
+                Create New User
+            </div>
+        </c:if>
+    </h2>
+</div>
 
     <c:if test="${user != null}">
         <div align="center">
-            <h2>Edit User</h2>
+            <h2 class="pageHeading">Edit User</h2>
         </div>
     </c:if>
 
     <div align="center">
         <c:if test="${user != null}">
-            <form action="update_user" method="POST" onsubmit="return validateFormInput()">
+            <form action="update_user" method="POST" id="userForm">
                 <input type="hidden" name="id" value="${user.id}">
                 </c:if>
 
-                <c:if test="${user != null}">
-                    <form action="create_user" method="POST" onsubmit="return validateFormInput()">
+                <c:if test="${user == null}">
+                    <form action="create_user" method="POST" id="userForm">
                         </c:if>
-        <table>
+        <table class="form">
             <tr>
                 <td align="right"><label for="email">Email </label></td>
                 <td align="right"><input type="text" name="email" size="30" id="email" value="${user.email}"></td>
@@ -48,8 +55,8 @@
 
             <tr>
                 <td colspan="2" align="center">
-                    <input type="submit" value="Save">
-                    <input type="button" value="Cancel" onclick="javascript:history.go(-1);">
+                    <button type="submit">Save</button>
+                    <button id="cancelButton">Cancel</button>
                 </td>
             </tr>
         </table>
@@ -60,28 +67,30 @@
 </body>
 
 <script type="text/javascript">
-    function validateFormInput(){
-        var fieldEmail = document.getElementById("email");
-        var fieldFullName = document.getElementById("fullName");
-        var fieldPassword = document.getElementById("password");
+    $(document).ready(function(){
+        $("#userForm").validate({
+            rules:{
+                email: {
+                    required: true,
+                    email: true
+                },
+                fullName : "required",
+                password: "required",
+            },
+            messages:{
+                email: {
+                    required: "Please enter email.",
+                    email: "Please enter an valid email address"
+                },
+                fullName: "Please enter Full Name",
+                password: "Please enter Password"
+            }
+        });
+    });
 
-        if(fieldEmail.value.length == 0){
-            alert("Email is required");
-            fieldEmail.focus();
-            return false;
-        }
 
-        if(fieldFullName.value.length == 0){
-            alert("Full Name is required");
-            fieldFullName.focus();
-            return false;
-        }
-
-        if(fieldPassword.value.length == 0){
-            alert("Password is required");
-            fieldPassword.focus();
-            return false;
-        }
-    }
+    $("#cancelButton").click(function(){
+        history.go(-1);
+    });
 </script>
 </html>

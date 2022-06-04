@@ -4,16 +4,24 @@
 <html>
 <head>
     <title>User Management - Evergreen Online BookStore</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.validate.min.js"></script>
+
 </head>
 <body>
 <jsp:directive.include file="header.jsp"/>
 
 <div align="center">
-    <h1>Users Management</h1>
+    <h2 class="pageHeading">
+        Users Management
+    </h2>
 </div>
 
 <div align="center">
-    <a href="create_user">Create New User</a>
+    <a href="create_user">
+        <h3 class="pageHeading">Create New User</h3></a>
 </div>
 
 <c:if test="${message != null}">
@@ -39,7 +47,7 @@
                 <td>${user.email}</td>
                 <td>${user.fullName}</td>
                 <td><a href="edit_user?id=${user.id}">Edit</a> &nbsp;
-                    <a href="javascript:confirmDelete(${user.id})">Delete</a></td>
+                    <a href="javascript:void(0);" class="deleteLink" id="${user.id}">Delete</a></td>
             </tr>
         </c:forEach>
     </table>
@@ -50,10 +58,15 @@
 </body>
 
 <script>
-    function confirmDelete(id){
-        if(confirm('Are tou sure want to delete the user with Id ' + id +' ?')){
-            window.location = 'delete_user?id=' +id;
-        }
-    }
+    $(document).ready(function() {
+        $(".deleteLink").each(function () {
+            $(this).on("click", function () {
+                id = $(this).attr("id");
+                if (confirm('Are tou sure want to delete the user with Id ' + id + ' ?')) {
+                    window.location = 'delete_user?id=' +id;
+                }
+            });
+        });
+    });
 </script>
 </html>

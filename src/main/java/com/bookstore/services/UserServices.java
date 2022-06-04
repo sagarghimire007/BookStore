@@ -17,15 +17,13 @@ public class UserServices {
 
     private HttpServletRequest request;
     private HttpServletResponse response;
-    private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
     private UsersDAO usersDAO;
 
-    public UserServices(HttpServletRequest request , HttpServletResponse response) {
+    public UserServices(EntityManager entityManager, HttpServletRequest request , HttpServletResponse response) {
         this.request = request;
         this.response = response;
-        entityManagerFactory = Persistence.createEntityManagerFactory("BookStore");
-        entityManager = entityManagerFactory.createEntityManager();
+        this.entityManager = entityManager;
         usersDAO = new UsersDAO(entityManager);
     }
 
@@ -33,7 +31,7 @@ public class UserServices {
         listUser(null);
     }
     public void listUser(String message) throws ServletException, IOException {
-       List userList =  usersDAO.listAll();
+       List<Users> userList =  usersDAO.listAll();
         request.setAttribute("userList", userList);
 
         if(message != null) {
@@ -105,5 +103,30 @@ public class UserServices {
         Integer userId = Integer.valueOf(request.getParameter("id"));
         usersDAO.delete(userId);
         listUser("User has been deleted successfully.");
+    }
+
+    public void login() throws ServletException, IOException {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        boolean loginResult = usersDAO.checkLogin(email, password);
+
+        if(loginResult){
+            Users user = usersDAO.findByEmail(email);
+            String fullName = user.getFullName();
+
+            System.out.println("User is authenticated");
+            System.out.println(fullName);
+
+            request.getSession().setAttribute("fullName", fullName);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/");
+            requestDispatcher.forward(request,response);
+        }else{
+            String message = "Login Failed. Please Try Again !";
+            request.setAttribute("message", message);
+
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
+            requestDispatcher.forward(request, response);
+        }
     }
 }

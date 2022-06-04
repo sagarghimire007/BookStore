@@ -90,6 +90,17 @@ class UsersDAOTest extends BaseDAOTest {
 
     }
 
+    @Test
+    public void testCheckLoginSuccess(){
+        setUpBeforeClass();
+        String email = "sagar@gmail.com";
+        String password = "1234";
+        boolean result = userDAO.checkLogin(email, password);
+
+        assertTrue(result);
+    }
+
+
     @AfterClass
     public static void tearDownClass(){
         BaseDAOTest.tearBeforeClass();
